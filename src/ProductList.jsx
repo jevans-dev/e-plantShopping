@@ -236,13 +236,18 @@ function ProductList() {
    const [addedToCart, setAddedToCart] = useState({});
 
     const handleAddToCart = (plant) => {
-        setAddedToCart(prevState => ({
-            ...prevState,
-            [plant.name]: true
-        }));
-        dispatch(addItem(plant));
+        const existingCartItem = cart.find(item => item.id === product.id);
+        if (existingCartItem) {
+            dispatchEvent(addItem({ ...product, quantity: existingCartItem.quantity + 1}));
+        } else {
+            dispatchEvent(addItem({ ...product, quantity: 1 }));
+        }
     };
-    
+
+    const caluclateTotalQuantity = () => {
+        return cart.reduce((total, item) => total + item.quantity, 0);
+    };
+
    const handleCartClick = (e) => {
     e.preventDefault();
     setShowCart(true); // Set showCart to true when cart icon is clicked
