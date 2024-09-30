@@ -40,10 +40,6 @@ const CartItem = ({ onContinueShopping }) => {
     return (item.cost * item.quantity).toFixed(2);
   };
 
-  //Quantity Counter
-  const caluclateTotalQuantity = () => {
-    return cart.reduce((total, item) => total + item.quantity, 0);
-  };
 
   return (
     <div className="cart-container">
